@@ -21,6 +21,12 @@ public class AlunoResource {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping("/aprovados")
+    public ResponseEntity<List<Aluno>> findApprovedStudents(){
+        List<Aluno> list = alunoService.findApprovedStudent();
+        return ResponseEntity.ok().body(list);
+    }
+
     @PostMapping
     public Aluno cadastrarAluno(@RequestBody Aluno aluno){
         return alunoService.save(aluno);

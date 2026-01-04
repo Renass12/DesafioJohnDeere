@@ -31,4 +31,7 @@ public class AlunoService {
         alunoRepository.deleteById(id);
     }
 
+    public List<Aluno> findApprovedStudent(){
+        return alunoRepository.buscarAprovados();
+    }
 }

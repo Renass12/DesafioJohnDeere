@@ -2,6 +2,12 @@ package com.estudos.DesafioJD.repositories;
 
 import com.estudos.DesafioJD.entities.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+
+    @Query("SELECT a FROM Aluno a WHERE a.nota >= 6")
+    List<Aluno> buscarAprovados();
 }
