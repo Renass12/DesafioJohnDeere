@@ -3,9 +3,7 @@ package com.estudos.DesafioJD.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_alunos")
@@ -18,8 +16,11 @@ public class Aluno implements Serializable {
     private String email;
     private Double nota;
 
-    @OneToMany(mappedBy = "aluno")
-    private List<Aula> aulas = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "tb_alunos_aulas",
+                joinColumns = @JoinColumn(name = "aluno_id"),
+                inverseJoinColumns = @JoinColumn(name = "aula_id"))
+    private Set<Aula> aulas = new HashSet<>();
 
     public Aluno(){
     }
@@ -63,7 +64,7 @@ public class Aluno implements Serializable {
         this.nota = nota;
     }
 
-    public List<Aula> getAulas() {
+    public Set<Aula> getAulas() {
         return aulas;
     }
 

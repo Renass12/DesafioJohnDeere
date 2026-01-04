@@ -1,10 +1,11 @@
 package com.estudos.DesafioJD.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_aulas")
@@ -16,18 +17,17 @@ public class Aula implements Serializable {
     private Instant moment;
     private String subjectName;
 
-    @ManyToOne
-    @JoinColumn(name = "aluno_id")
-    private Aluno aluno;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "aulas")
+    private List<Aluno> alunos = new ArrayList<>();
 
     public Aula(){
     }
 
-    public Aula(Long id, Instant moment, String subjectName, Aluno aluno) {
+    public Aula(Long id, Instant moment, String subjectName) {
         this.id = id;
         this.moment = moment;
         this.subjectName = subjectName;
-        this.aluno = aluno;
     }
 
     public Long getId() {
@@ -54,12 +54,8 @@ public class Aula implements Serializable {
         this.subjectName = subjectName;
     }
 
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public List<Aluno> getAlunos() {
+        return alunos;
     }
 
     @Override
